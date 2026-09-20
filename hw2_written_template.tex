@@ -1,0 +1,120 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,bm,booktabs,graphicx,hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue}
+
+\title{CS 577 Deep Learning\\Homework 2: Inside an MLP}
+\author{Your Name (Hawk username: \texttt{yourname})}
+\date{Fall 2026}
+
+\begin{document}
+\maketitle
+
+\section*{Part 0: Conventions and Reproducible Setup}
+
+\subsection*{0.1 Environment and public tests}
+% Report versions and summarize the public-test result.
+
+\subsection*{0.2 Shape and reduction contract}
+% Explain (B,1) versus (B,), the possible (B,B) broadcasting error, and 1/B.
+
+\section*{Part 1: Forward and Backward Mathematics}
+
+\subsection*{1.1 Forward shape trace}
+\begin{center}
+  \begin{tabular}{lll}
+    \toprule
+    Quantity & Expression / role & Shape \\
+    \midrule
+    $X$ & input batch & TODO \\
+    $W_1,b_1$ & first affine parameters & TODO \\
+    $Z_1$ & $XW_1+b_1$ & TODO \\
+    $A_1$ & $\operatorname{ReLU}(Z_1)$ & TODO \\
+    $W_2,b_2$ & output affine parameters & TODO \\
+    $S$ & logits & TODO \\
+    $y$ & binary targets & TODO \\
+    $J$ & mean batch loss & TODO \\
+    \bottomrule
+  \end{tabular}
+\end{center}
+
+% Explain both bias broadcasts and distinguish logits from probabilities.
+
+\subsection*{1.2 BCE-with-logits derivative}
+% Derive dJ/dS = (sigmoid(S)-y)/B with intermediate reasoning.
+
+\subsection*{1.3 Complete backward chain}
+% Derive dW2, db2, dA1, dZ1, dW1, db1, and optionally dX.
+% Include shapes and explain batch-axis reductions for bias gradients.
+
+\section*{Part 2: NumPy Forward and Backward Implementation}
+
+\subsection*{2.1 Stable primitives}
+% Explain the stability choices and report one extreme-logit check.
+
+\subsection*{2.2 Fixed-case forward pass}
+% Report Z1/A1/logit shapes and logits from the supplied check case.
+
+\subsection*{2.3 Fixed-case manual backward pass}
+\begin{center}
+  \begin{tabular}{lrr}
+    \toprule
+    Parameter & Gradient shape & Gradient norm \\
+    \midrule
+    $W_1$ & TODO & TODO \\
+    $b_1$ & TODO & TODO \\
+    $W_2$ & TODO & TODO \\
+    $b_2$ & TODO & TODO \\
+    \bottomrule
+  \end{tabular}
+\end{center}
+
+% Report fixed-case loss and briefly interpret the gradient norms.
+
+\section*{Part 3: Two Independent Gradient Checks}
+
+\subsection*{3.1 Centered finite differences}
+\begin{center}
+  \begin{tabular}{lrr}
+    \toprule
+    Parameter & Maximum absolute error & Relative error \\
+    \midrule
+    $W_1$ & TODO & TODO \\
+    $b_1$ & TODO & TODO \\
+    $W_2$ & TODO & TODO \\
+    $b_2$ & TODO & TODO \\
+    \bottomrule
+  \end{tabular}
+\end{center}
+
+\subsection*{3.2 PyTorch autograd comparison}
+% Provide a similar table for autograd and explain what passing establishes.
+
+\section*{Part 4: Nonlinear Experiment}
+
+\subsection*{4.1 Linear baseline}
+% Report train/test loss and accuracy; explain the straight-boundary limitation.
+
+\subsection*{4.2 Manual MLP}
+% Report configuration and train/test loss and accuracy.
+
+% Insert the loss curve and decision-boundary figure exported by the notebook.
+% Example: \includegraphics[width=.8\linewidth]{hw2_experiment.png}
+
+\subsection*{4.3 Interpretation}
+% Write the requested 5--8 sentence evidence-based interpretation.
+
+\section*{Part 5: Reflection}
+
+\paragraph{Most useful cached value.} TODO
+
+\paragraph{First gradient-check investigations.} TODO
+
+\paragraph{Why close is not bit-identical.} TODO
+
+\section*{Assistance and Generative-AI Disclosure}
+
+% Name each tool/person, purpose, and what you verified or changed. If none, state that.
+TODO
+
+\end{document}
