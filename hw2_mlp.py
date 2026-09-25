@@ -19,12 +19,12 @@ PARAMETER_KEYS = ("W1", "b1", "W2", "b2")
 
 def sigmoid_stable(z: np.ndarray) -> np.ndarray:
     """Elementwise sigmoid computed without overflow."""
-    raise NotImplementedError
+    return np.exp(-np.logaddexp(0.0, -z)) 
 
 
 def relu(z: np.ndarray) -> np.ndarray:
     """Elementwise ReLU."""
-    raise NotImplementedError
+    return np.maximum(0,z)
 
 
 def binary_cross_entropy_with_logits(
@@ -35,7 +35,8 @@ def binary_cross_entropy_with_logits(
     Both arrays must have identical shape (B, 1). Use the numerically stable
     BCE-with-logits expression stated in the assignment.
     """
-    raise NotImplementedError
+    loss=np.maximum(0,logits)-y*logits+np.log1p(np.exp(-np.abs(logits)))
+    return float(np.mean(loss))
 
 
 def initialize_parameters(
@@ -62,13 +63,30 @@ def mlp_forward(
     X: np.ndarray, params: ArrayDict
 ) -> Tuple[np.ndarray, ArrayDict]:
     """Run affine -> ReLU -> affine and return (logits, cache)."""
-    raise NotImplementedError
+    Z1=X@params["W1"]+params["b1"]
+    A1=relu(Z1)
+    S=A1@params["W2"]+params["b2"]
+    cache = {
+        "X": X,
+        "Z1": Z1,
+        "A1": A1,
+        }
+
+    return S, cache
 
 
 def mlp_loss_and_gradients(
     X: np.ndarray, y: np.ndarray, params: ArrayDict
 ) -> Tuple[float, ArrayDict]:
     """Return mean BCE-with-logits loss and manual parameter gradients."""
+    S, cache = mlp_forward(X, params)
+    loss = binary_cross_entropy_with_logits(S, y)
+    B = X.shape[0]
+    dS = (sigmoid_stable(S) - y) / B
+    A1 = cache["A1"]
+    dW2 = A1.T @ dS
+    db2 = np.sum(dS, axis=0)
+    dA1 = dS @ params["W2"].T
     raise NotImplementedError
 
 

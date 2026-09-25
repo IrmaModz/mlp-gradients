@@ -4,7 +4,7 @@
 \hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue}
 
 \title{CS 577 Deep Learning\\Homework 2: Inside an MLP}
-\author{Your Name (Hawk username: \texttt{yourname})}
+\author{Irma Modzgvrishvili (Hawk username: \texttt{A20597307})}
 \date{Fall 2026}
 
 \begin{document}
@@ -14,29 +14,68 @@
 
 \subsection*{0.1 Environment and public tests}
 % Report versions and summarize the public-test result.
-
+\begin{center}
+  \begin{tabular}{ll}
+    \toprule
+    Environment Item & Version / Value \\
+      \midrule
+      Python & 3.13.5 \\
+      Platform & macOS-15.7.4-arm64-arm-64bit-Mach-O \\
+      NumPy & 2.5.2 \\
+      PyTorch & 2.13.0 \\
+      Required device & CPU \\
+      \bottomrule
+  \end{tabular}
+\end{center}
 \subsection*{0.2 Shape and reduction contract}
 % Explain (B,1) versus (B,), the possible (B,B) broadcasting error, and 1/B.
+The targets are stored with shape $(B,1)$ so they match the logits shape $(B,1)$.
+If we combine an array with shape $(B,1)$ and another with shape $(B,)$, NumPy broadcasting can produce an incorrect result with shape $(B,B)$.
+Because the loss is the mean over the batch,
 
+        \[
+        J = \frac{1}{B}\sum_{i=1}^{B}\ell_i,
+        \]
+
+the factor $\frac{1}{B}$ enters backward propagation in
+
+        \[
+        \frac{\partial J}{\partial S}
+        =
+        \frac{\sigma(S)-y}{B}.
+        \]
 \section*{Part 1: Forward and Backward Mathematics}
 
 \subsection*{1.1 Forward shape trace}
 \begin{center}
+
   \begin{tabular}{lll}
     \toprule
     Quantity & Expression / role & Shape \\
     \midrule
-    $X$ & input batch & TODO \\
-    $W_1,b_1$ & first affine parameters & TODO \\
-    $Z_1$ & $XW_1+b_1$ & TODO \\
-    $A_1$ & $\operatorname{ReLU}(Z_1)$ & TODO \\
-    $W_2,b_2$ & output affine parameters & TODO \\
-    $S$ & logits & TODO \\
-    $y$ & binary targets & TODO \\
-    $J$ & mean batch loss & TODO \\
+    $X$ & input batch & $(B,D)$ \\
+    $W_1,b_1$ & first affine parameters & $(D,H),\ (H,)$ \\
+    $Z_1$ & $XW_1+b_1$ & $(B,H)$ \\
+    $A_1$ & $\operatorname{ReLU}(Z_1)$ & $(B,H)$ \\
+    $W_2,b_2$ & output affine parameters & $(H,1),\ (1,)$ \\
+    $S$ & logits & $(B,1)$ \\
+    $y$ & binary targets & $(B,1)$ \\
+    $J$ & mean batch loss & scalar \\
     \bottomrule
   \end{tabular}
 \end{center}
+
+The first bias $b_1$ has shape $(H,)$ and is broadcast across all
+$B$ examples when it is added to $XW_1$, which has shape $(B,H)$.
+
+The second bias $b_2$ has shape $(1,)$ and is broadcast across all
+$B$ examples when it is added to $A_1W_2$, which has shape $(B,1)$.
+
+The values in $S$ are logits, or raw model outputs. They are not
+probabilities. The probability of class 1 is obtained using
+$\sigma(S)$.
+
+Since $J$ is the mean loss over the batch, it is a scalar.
 
 % Explain both bias broadcasts and distinguish logits from probabilities.
 
