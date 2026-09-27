@@ -1,6 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1790514955.78532 "/Users/irmamodzgvrishvili/Desktop/Education/Illinois/Fall26/CS577/mlp-gradients/hw2_written_template.tex" "hw2_written_template.pdf" "hw2_written_template" 1790514956.05453 0
-  "/Users/irmamodzgvrishvili/Desktop/Education/Illinois/Fall26/CS577/mlp-gradients/hw2_written_template.tex" 1790514955.01207 5800 46ca94c922d0439f1dfa1c74e9e7e9e0 ""
+["pdflatex"] 1790516321.65585 "/Users/irmamodzgvrishvili/Desktop/Education/Illinois/Fall26/CS577/mlp-gradients/hw2_written_template.tex" "hw2_written_template.pdf" "hw2_written_template" 1790516321.93118 0
+  "/Users/irmamodzgvrishvili/Desktop/Education/Illinois/Fall26/CS577/mlp-gradients/hw2_written_template.tex" 1790516321.05209 6968 b96cd804575cd38f0479fdeaee1ba7f4 ""
   "/Users/irmamodzgvrishvili/Library/TinyTeX/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy6.tfm" 1246382020 1124 14ccf5552bc7f77ca02a8a402bea8bfb ""
   "/Users/irmamodzgvrishvili/Library/TinyTeX/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy8.tfm" 1246382020 1120 200be8b775682cdf80acad4be5ef57e4 ""
   "/Users/irmamodzgvrishvili/Library/TinyTeX/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1246382020 1004 54797486969f23fa377b128694d548df ""
@@ -98,9 +98,9 @@
   "/Users/irmamodzgvrishvili/Library/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1762202785 92959 4fe4b53901cd9cf0166b105073a59d14 ""
   "/Users/irmamodzgvrishvili/Library/TinyTeX/texmf-var/web2c/pdftex/pdflatex.fmt" 1762202793 2234531 87c6f64d6d8be4584fb7f7c9f819ae81 ""
   "/Users/irmamodzgvrishvili/Library/TinyTeX/texmf.cnf" 1748906819.59462 708 85fd07691b6294ba94c59dbc62380410 ""
-  "hw2_written_template.aux" 1790514956.00893 512 31191fb70ab80f48952e8faa97b0ee16 "pdflatex"
-  "hw2_written_template.out" 1790514955.98658 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
-  "hw2_written_template.tex" 1790514955.01207 5800 46ca94c922d0439f1dfa1c74e9e7e9e0 ""
+  "hw2_written_template.aux" 1790516321.88572 512 8e945b6880dddfded07f7962c7cda319 "pdflatex"
+  "hw2_written_template.out" 1790516321.85914 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+  "hw2_written_template.tex" 1790516321.05209 6968 b96cd804575cd38f0479fdeaee1ba7f4 ""
   (generated)
   "hw2_written_template.aux"
   "hw2_written_template.log"

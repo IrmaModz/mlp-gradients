@@ -187,7 +187,139 @@ so the first backward signal is
 \subsection*{1.3 Complete backward chain}
 % Derive dW2, db2, dA1, dZ1, dW1, db1, and optionally dX.
 % Include shapes and explain batch-axis reductions for bias gradients.
+Starting from
 
+\[
+dS \equiv \frac{\partial J}{\partial S},
+\]
+
+we backpropagate through the output affine layer,
+
+\[
+S = A_1 W_2 + b_2.
+\]
+
+The output-layer weight gradient is
+
+\[
+dW_2
+=
+A_1^T dS,
+\]
+
+with shapes
+
+\[
+A_1^T:(H,B),
+\qquad
+dS:(B,1),
+\]
+
+so
+
+\[
+dW_2:(H,1).
+\]
+
+The output bias gradient is
+
+\[
+db_2
+=
+\sum_{i=1}^{B} dS_i,
+\]
+
+so
+
+\[
+db_2:(1,).
+\]
+
+The gradient passed back to the hidden activations is
+
+\[
+dA_1
+=
+dS W_2^T,
+\]
+
+with
+
+\[
+dS:(B,1),
+\qquad
+W_2^T:(1,H),
+\]
+
+therefore
+
+\[
+dA_1:(B,H).
+\]
+
+Next, since
+
+\[
+A_1=\operatorname{ReLU}(Z_1),
+\]
+
+the ReLU derivative gives
+
+\[
+dZ_1
+=
+dA_1 \odot \mathbf{1}(Z_1>0),
+\]
+
+so
+
+\[
+dZ_1:(B,H).
+\]
+
+For the first affine layer,
+
+\[
+Z_1=XW_1+b_1.
+\]
+
+The first-layer weight gradient is
+
+\[
+dW_1
+=
+X^T dZ_1,
+\]
+
+with
+
+\[
+X^T:(D,B),
+\qquad
+dZ_1:(B,H),
+\]
+
+so
+
+\[
+dW_1:(D,H).
+\]
+
+The first-layer bias gradient is
+
+\[
+db_1
+=
+\sum_{i=1}^{B} dZ_{1,i},
+\]
+
+therefore
+
+\[
+db_1:(H,).
+\]
+
+Bias gradients reduce over the batch axis because the same bias parameter is shared by all examples in the batch. The contributions from all examples are summed, while the remaining dimensions match the original bias parameter shapes.
 \section*{Part 2: NumPy Forward and Backward Implementation}
 
 \subsection*{2.1 Stable primitives}

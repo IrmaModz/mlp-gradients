@@ -35,7 +35,14 @@ def binary_cross_entropy_with_logits(
     Both arrays must have identical shape (B, 1). Use the numerically stable
     BCE-with-logits expression stated in the assignment.
     """
+    if logits.shape != y.shape:
+        raise ValueError("logits and y must have the same shape")
+
+    if logits.ndim != 2 or logits.shape[1] != 1:
+        raise ValueError("logits and y must have shape (B, 1)")
+
     loss=np.maximum(0,logits)-y*logits+np.log1p(np.exp(-np.abs(logits)))
+
     return float(np.mean(loss))
 
 
