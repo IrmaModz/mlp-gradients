@@ -445,17 +445,48 @@ case, $W_1$ has the largest gradient norm, while $b_2$ has the smallest.
     \toprule
     Parameter & Maximum absolute error & Relative error \\
     \midrule
-    $W_1$ & TODO & TODO \\
-    $b_1$ & TODO & TODO \\
-    $W_2$ & TODO & TODO \\
-    $b_2$ & TODO & TODO \\
+    $W_1$ & 1.205e-11 & 2.219e-11 \\
+    $b_1$ & 6.612e-12 & 2.525e-11 \\
+    $W_2$ & 4.716e-12 & 8.690e-12 \\
+    $b_2$ & 1.862e-13 & 8.185e-13 \\
     \bottomrule
   \end{tabular}
 \end{center}
 
+The relative error is computed as
+\[
+\frac{
+\left\|g_{\text{manual}}-g_{\text{reference}}\right\|_2
+}{
+\left\|g_{\text{manual}}\right\|_2+
+\left\|g_{\text{reference}}\right\|_2+
+10^{-12}
+}.
+\]
+
 \subsection*{3.2 PyTorch autograd comparison}
 % Provide a similar table for autograd and explain what passing establishes.
+\begin{center}
+  \begin{tabular}{lrr}
+    \toprule
+    Parameter & Maximum absolute error & Relative error \\
+    \midrule
+    $W_1$ & 2.7755575615628914e-17 & 5.692702109414681e-17 \\
+    $b_1$ & 5.551115123125783e-17 & 2.2195591008792773e-16 \\
+    $W_2$ & 5.551115123125783e-17 & 1.202675990198298e-16 \\
+    $b_2$ & 8.326672684688674e-17 & 3.6609986551693917e-16 \\
+    \bottomrule
+  \end{tabular}
+\end{center}
 
+The very small errors in both gradient checks show that my manual gradients are
+almost the same as the gradients from finite differences and PyTorch autograd.
+This means that the backward-pass calculations for $W_1$, $b_1$, $W_2$, and
+$b_2$ are most likely correct for this fixed test case.
+
+However, this does not prove that the whole program is correct in every case.
+It only checks the gradient calculations for this example. It does not check
+other parts, such as training, prediction, or different input data.
 \section*{Part 4: Nonlinear Experiment}
 
 \subsection*{4.1 Linear baseline}
