@@ -108,13 +108,52 @@ def mlp_loss_and_gradients(
 
 
 def finite_difference_gradients(
-    X: np.ndarray,
-    y: np.ndarray,
-    params: ArrayDict,
-    epsilon: float = 1e-5,
-) -> ArrayDict:
-    """Return centered finite-difference gradients for all scalar parameters."""
-    raise NotImplementedError
+        X: np.ndarray,
+        y: np.ndarray,
+        params: ArrayDict,
+        epsilon: float = 1e-5,
+    ) -> ArrayDict:
+        """Return centered finite-difference gradients for all scalar parameters."""
+        numerical_grads = {
+            key: np.zeros_like(value)
+            for key, value in params.items()
+        }
+
+        # Work on a copy so the original params dictionary stays unchanged
+        params_work = {
+            key: value.copy()
+            for key, value in params.items()
+        }
+
+        for key in params_work:
+            for idx in np.ndindex(params_work[key].shape):
+
+                original_value = params_work[key][idx]
+
+                # 1. Set parameter to original + epsilon
+                params_work[key][idx] = original_value + epsilon
+                J_plus=mlp_loss_and_gradients(X,y, params_work)[0]
+
+
+                # 2. Set parameter to original - epsilon
+                params_work[key][idx] = original_value - epsilon
+                J_minus=mlp_loss_and_gradients(X,y, params_work)[0]
+
+
+                # 3. Centered finite difference
+                numerical_grads[key][idx] = (
+                    J_plus - J_minus
+                ) / (2 * epsilon)
+
+                # 4. Restore original parameter
+                params_work[key][idx] = original_value
+
+        return numerical_grads
+    
+def relative_error(a, b):
+    numerator = np.linalg.norm(a - b)
+    denominator = np.linalg.norm(a) + np.linalg.norm(b) + 1e-12
+    return float(numerator / denominator)
 
 
 def predict_proba(X: np.ndarray, params: ArrayDict) -> np.ndarray:
