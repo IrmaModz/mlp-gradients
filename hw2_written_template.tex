@@ -81,6 +81,108 @@ Since $J$ is the mean loss over the batch, it is a scalar.
 
 \subsection*{1.2 BCE-with-logits derivative}
 % Derive dJ/dS = (sigmoid(S)-y)/B with intermediate reasoning.
+For one example, let
+
+\[
+p = \sigma(s).
+\]
+
+The binary cross-entropy loss is
+
+\[
+\ell(s,y)
+=
+-y\log p
+-
+(1-y)\log(1-p).
+\]
+
+First, differentiate with respect to $p$:
+
+\[
+\frac{\partial \ell}{\partial p}
+=
+-\frac{y}{p}
++
+\frac{1-y}{1-p}.
+\]
+
+Since
+
+\[
+p=\sigma(s)=\frac{1}{1+e^{-s}},
+\]
+
+the sigmoid derivative is
+
+\[
+\frac{\partial p}{\partial s}
+=
+p(1-p).
+\]
+
+Using the chain rule,
+
+\[
+\frac{\partial \ell}{\partial s}
+=
+\frac{\partial \ell}{\partial p}
+\frac{\partial p}{\partial s}.
+\]
+
+Therefore,
+
+\[
+\frac{\partial \ell}{\partial s}
+=
+\left(
+-\frac{y}{p}
++
+\frac{1-y}{1-p}
+\right)
+p(1-p).
+\]
+
+Simplifying,
+
+\[
+=
+-y(1-p)+(1-y)p
+\]
+
+\[
+=
+-y+yp+p-yp
+\]
+
+\[
+=
+p-y.
+\]
+
+Since $p=\sigma(s)$,
+
+\[
+\frac{\partial \ell}{\partial s}
+=
+\sigma(s)-y.
+\]
+
+The full loss is the mean over the batch,
+
+\[
+J=\frac{1}{B}\sum_{i=1}^{B}\ell_i,
+\]
+
+so the first backward signal is
+
+\[
+\boxed{
+\frac{\partial J}{\partial S}
+=
+\frac{\sigma(S)-y}{B}
+}.
+\]
 
 \subsection*{1.3 Complete backward chain}
 % Derive dW2, db2, dA1, dZ1, dW1, db1, and optionally dX.

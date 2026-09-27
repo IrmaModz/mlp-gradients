@@ -1,6 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1790350757.70238 "/Users/irmamodzgvrishvili/Desktop/Education/Illinois/Fall26/CS577/mlp-gradients/hw2_written_template.tex" "hw2_written_template.pdf" "hw2_written_template" 1790350758.00125 0
-  "/Users/irmamodzgvrishvili/Desktop/Education/Illinois/Fall26/CS577/mlp-gradients/hw2_written_template.tex" 1790350757.47875 4864 5659b4d8e535e201386dd5ed153a514c ""
+["pdflatex"] 1790514955.78532 "/Users/irmamodzgvrishvili/Desktop/Education/Illinois/Fall26/CS577/mlp-gradients/hw2_written_template.tex" "hw2_written_template.pdf" "hw2_written_template" 1790514956.05453 0
+  "/Users/irmamodzgvrishvili/Desktop/Education/Illinois/Fall26/CS577/mlp-gradients/hw2_written_template.tex" 1790514955.01207 5800 46ca94c922d0439f1dfa1c74e9e7e9e0 ""
   "/Users/irmamodzgvrishvili/Library/TinyTeX/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy6.tfm" 1246382020 1124 14ccf5552bc7f77ca02a8a402bea8bfb ""
   "/Users/irmamodzgvrishvili/Library/TinyTeX/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy8.tfm" 1246382020 1120 200be8b775682cdf80acad4be5ef57e4 ""
   "/Users/irmamodzgvrishvili/Library/TinyTeX/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1246382020 1004 54797486969f23fa377b128694d548df ""
@@ -41,6 +41,7 @@
   "/Users/irmamodzgvrishvili/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb" 1248133631 32362 179c33bbf43f19adbb3825bb4e36e57a ""
   "/Users/irmamodzgvrishvili/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb" 1248133631 32726 0a1aea6fcd6468ee2cf64d891f5c43c8 ""
   "/Users/irmamodzgvrishvili/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb" 1248133631 32569 5e5ddc8df908dea60932f3c484a54c0d ""
+  "/Users/irmamodzgvrishvili/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb" 1248133631 32626 4f5c1b83753b1dd3a97d1b399a005b4b ""
   "/Users/irmamodzgvrishvili/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb" 1248133631 24252 1e4e051947e12dfb50fee0b7f4e26e3a ""
   "/Users/irmamodzgvrishvili/Library/TinyTeX/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty" 1576625341 40635 c40361e206be584d448876bba8a64a3b ""
   "/Users/irmamodzgvrishvili/Library/TinyTeX/texmf-dist/tex/generic/bitset/bitset.sty" 1576016050 33961 6b5c75130e435b2bfdb9f480a09a39f9 ""
@@ -97,9 +98,9 @@
   "/Users/irmamodzgvrishvili/Library/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1762202785 92959 4fe4b53901cd9cf0166b105073a59d14 ""
   "/Users/irmamodzgvrishvili/Library/TinyTeX/texmf-var/web2c/pdftex/pdflatex.fmt" 1762202793 2234531 87c6f64d6d8be4584fb7f7c9f819ae81 ""
   "/Users/irmamodzgvrishvili/Library/TinyTeX/texmf.cnf" 1748906819.59462 708 85fd07691b6294ba94c59dbc62380410 ""
-  "hw2_written_template.aux" 1790350757.95421 512 1d947b13a7fed1c5301ef9061e1cf59c "pdflatex"
-  "hw2_written_template.out" 1790350757.93255 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
-  "hw2_written_template.tex" 1790350757.47875 4864 5659b4d8e535e201386dd5ed153a514c ""
+  "hw2_written_template.aux" 1790514956.00893 512 31191fb70ab80f48952e8faa97b0ee16 "pdflatex"
+  "hw2_written_template.out" 1790514955.98658 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+  "hw2_written_template.tex" 1790514955.01207 5800 46ca94c922d0439f1dfa1c74e9e7e9e0 ""
   (generated)
   "hw2_written_template.aux"
   "hw2_written_template.log"
