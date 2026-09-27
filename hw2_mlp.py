@@ -94,7 +94,17 @@ def mlp_loss_and_gradients(
     dW2 = A1.T @ dS
     db2 = np.sum(dS, axis=0)
     dA1 = dS @ params["W2"].T
-    raise NotImplementedError
+    dZ1=dA1*(cache["Z1"]>0)
+    dW1 = X.T @ dZ1
+    db1 = np.sum(dZ1, axis=0)
+    grads = {
+        "W1":dW1 ,
+        "b1": db1,
+        "W2": dW2,
+        "b2": db2
+    }
+
+    return loss, grads
 
 
 def finite_difference_gradients(
