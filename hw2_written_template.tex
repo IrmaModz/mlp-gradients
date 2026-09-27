@@ -320,29 +320,122 @@ db_1:(H,).
 \]
 
 Bias gradients reduce over the batch axis because the same bias parameter is shared by all examples in the batch. The contributions from all examples are summed, while the remaining dimensions match the original bias parameter shapes.
+
 \section*{Part 2: NumPy Forward and Backward Implementation}
 
 \subsection*{2.1 Stable primitives}
 % Explain the stability choices and report one extreme-logit check.
+The sigmoid was implemented using
+\[
+\sigma(z) =
+\exp\left(-\operatorname{logaddexp}(0,-z)\right),
+\]
+which avoids directly computing large values of \(e^{-z}\) for very negative
+inputs. 
 
+The ReLU function was implemented elementwise as
+\[
+\operatorname{ReLU}(z) = \max(0,z).
+\]
+
+Binary cross-entropy was computed directly from logits using the numerically
+stable expression
+\[
+\ell(s,y)
+=
+\max(s,0)
+-
+ys
++
+\log\left(1+e^{-|s|}\right).
+\]
+
+The loss function first verifies that the logits and targets have identical
+shape \((B,1)\), and then returns the mean loss as a Python scalar.
+
+For an extreme-logit check, I used
+\[
+z =
+\begin{bmatrix}
+-1000 \\
+1000
+\end{bmatrix},
+\qquad
+y =
+\begin{bmatrix}
+0 \\
+1
+\end{bmatrix}.
+\]
+
+The stable sigmoid returned
+\[
+\sigma(z) =
+\begin{bmatrix}
+0 \\
+1
+\end{bmatrix},
+\]
+and the BCE-with-logits loss was
+\[
+J = 0.0.
+\]
+
+The computation remained finite with no overflow, infinity, or NaN values.
 \subsection*{2.2 Fixed-case forward pass}
 % Report Z1/A1/logit shapes and logits from the supplied check case.
+For the supplied fixed check case, the cached shapes were
+\[
+X \in \mathbb{R}^{4\times 2},
+\qquad
+Z_1 \in \mathbb{R}^{4\times 3},
+\qquad
+A_1 \in \mathbb{R}^{4\times 3}.
+\]
 
+The output logits had shape
+\[
+S \in \mathbb{R}^{4\times 1}.
+\]
+
+The computed logits were
+\[
+S =
+\begin{bmatrix}
+0.358 \\
+0.840 \\
+-0.131 \\
+0.850
+\end{bmatrix}.
+\]
+
+The minimum absolute hidden pre-activation value was
+\[
+\min |Z_1| = 0.2.
+\]
 \subsection*{2.3 Fixed-case manual backward pass}
 \begin{center}
   \begin{tabular}{lrr}
     \toprule
     Parameter & Gradient shape & Gradient norm \\
     \midrule
-    $W_1$ & TODO & TODO \\
-    $b_1$ & TODO & TODO \\
-    $W_2$ & TODO & TODO \\
-    $b_2$ & TODO & TODO \\
+    $W_1$ & (2,3) & 0.3310189075461203 \\
+    $b_1$ & (3,) & 0.1432627161908632 \\
+    $W_2$ & (3,1) & 0.28557793465207953 \\
+    $b_2$ & (1,) & 0.11372132946422508 \\
     \bottomrule
   \end{tabular}
 \end{center}
 
 % Report fixed-case loss and briefly interpret the gradient norms.
+The fixed-case mean BCE-with-logits loss was
+\[
+J = 0.803402148481108.
+\]
+
+All gradient norms are finite and nonzero, which indicates that the gradient
+propagates through both affine layers and the ReLU activation. In this check
+case, $W_1$ has the largest gradient norm, while $b_2$ has the smallest.
 
 \section*{Part 3: Two Independent Gradient Checks}
 
