@@ -77,6 +77,7 @@ def mlp_forward(
         "X": X,
         "Z1": Z1,
         "A1": A1,
+        "logits":S
         }
 
     return S, cache

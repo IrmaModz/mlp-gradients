@@ -514,11 +514,19 @@ initializations or hyperparameters.
 
 \section*{Part 5: Reflection}
 
-\paragraph{Most useful cached value.} TODO
+\paragraph{Most useful cached value.} The most useful cached values were $Z_1$ and $A_1$.
+$A_1$ was needed to compute the gradient for $W_2$, and $Z_1$ was needed
+to apply the ReLU derivative during the backward pass.
 
-\paragraph{First gradient-check investigations.} TODO
+\paragraph{First gradient-check investigations.} If the gradient check failed, I would first check the tensor shapes,
+the factor $1/B$ in the mean loss, and the ReLU derivative.
+I would also check if the original parameters were restored correctly
+after each finite-difference perturbation.
 
-\paragraph{Why close is not bit-identical.} TODO
+\paragraph{Why close is not bit-identical.} The manual gradients, finite-difference gradients, and PyTorch gradients
+can be extremely close but not exactly identical because floating-point
+calculations have small rounding errors. Finite differences also use an
+approximation based on a small value of $\epsilon$.
 
 \section*{Assistance and Generative-AI Disclosure}
 
