@@ -170,6 +170,11 @@ INPUT /Users/irmamodzgvrishvili/Library/TinyTeX/texmf-dist/fonts/tfm/public/cm/c
 INPUT /Users/irmamodzgvrishvili/Library/TinyTeX/texmf-dist/fonts/tfm/public/cm/cmmib10.tfm
 INPUT /Users/irmamodzgvrishvili/Library/TinyTeX/texmf-dist/fonts/tfm/public/cm/cmbsy10.tfm
 INPUT /Users/irmamodzgvrishvili/Library/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdftex.map
+INPUT ./hw2_experiment.png
+INPUT ./hw2_experiment.png
+INPUT ./hw2_experiment.png
+INPUT ./hw2_experiment.png
+INPUT ./hw2_experiment.png
 INPUT hw2_written_template.aux
 INPUT ./hw2_written_template.out
 INPUT ./hw2_written_template.out

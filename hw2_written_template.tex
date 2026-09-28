@@ -34,15 +34,15 @@ If we combine an array with shape $(B,1)$ and another with shape $(B,)$, NumPy b
 Because the loss is the mean over the batch,
 
         \[
-        J = \frac{1}{B}\sum_{i=1}^{B}\ell_i,
+          J = \frac{1}{B}\sum_{i=1}^{B}\ell_i,
         \]
 
 the factor $\frac{1}{B}$ enters backward propagation in
 
         \[
-        \frac{\partial J}{\partial S}
-        =
-        \frac{\sigma(S)-y}{B}.
+          \frac{\partial J}{\partial S}
+          =
+          \frac{\sigma(S)-y}{B}.
         \]
 \section*{Part 1: Forward and Backward Mathematics}
 
@@ -83,241 +83,241 @@ Since $J$ is the mean loss over the batch, it is a scalar.
 % Derive dJ/dS = (sigmoid(S)-y)/B with intermediate reasoning.
 For one example, let
 
-\[
-p = \sigma(s).
-\]
+        \[
+          p = \sigma(s).
+        \]
 
 The binary cross-entropy loss is
 
-\[
-\ell(s,y)
-=
--y\log p
--
-(1-y)\log(1-p).
-\]
+        \[
+          \ell(s,y)
+          =
+          -y\log p
+          -
+          (1-y)\log(1-p).
+        \]
 
 First, differentiate with respect to $p$:
 
-\[
-\frac{\partial \ell}{\partial p}
-=
--\frac{y}{p}
-+
-\frac{1-y}{1-p}.
-\]
+        \[
+          \frac{\partial \ell}{\partial p}
+          =
+          -\frac{y}{p}
+          +
+          \frac{1-y}{1-p}.
+        \]
 
 Since
 
-\[
-p=\sigma(s)=\frac{1}{1+e^{-s}},
-\]
+        \[
+          p=\sigma(s)=\frac{1}{1+e^{-s}},
+        \]
 
 the sigmoid derivative is
 
-\[
-\frac{\partial p}{\partial s}
-=
-p(1-p).
-\]
+        \[
+          \frac{\partial p}{\partial s}
+          =
+          p(1-p).
+        \]
 
 Using the chain rule,
 
-\[
-\frac{\partial \ell}{\partial s}
-=
-\frac{\partial \ell}{\partial p}
-\frac{\partial p}{\partial s}.
-\]
+        \[
+          \frac{\partial \ell}{\partial s}
+          =
+          \frac{\partial \ell}{\partial p}
+          \frac{\partial p}{\partial s}.
+        \]
 
 Therefore,
 
-\[
-\frac{\partial \ell}{\partial s}
-=
-\left(
--\frac{y}{p}
-+
-\frac{1-y}{1-p}
-\right)
-p(1-p).
-\]
+        \[
+          \frac{\partial \ell}{\partial s}
+          =
+          \left(
+          -\frac{y}{p}
+          +
+          \frac{1-y}{1-p}
+          \right)
+          p(1-p).
+        \]
 
 Simplifying,
 
-\[
-=
--y(1-p)+(1-y)p
-\]
+        \[
+          =
+          -y(1-p)+(1-y)p
+        \]
 
-\[
-=
--y+yp+p-yp
-\]
+        \[
+          =
+          -y+yp+p-yp
+        \]
 
-\[
-=
-p-y.
-\]
+        \[
+          =
+          p-y.
+        \]
 
 Since $p=\sigma(s)$,
 
-\[
-\frac{\partial \ell}{\partial s}
-=
-\sigma(s)-y.
-\]
+        \[
+          \frac{\partial \ell}{\partial s}
+          =
+          \sigma(s)-y.
+        \]
 
 The full loss is the mean over the batch,
 
-\[
-J=\frac{1}{B}\sum_{i=1}^{B}\ell_i,
-\]
+        \[
+          J=\frac{1}{B}\sum_{i=1}^{B}\ell_i,
+        \]
 
 so the first backward signal is
 
-\[
-\boxed{
-\frac{\partial J}{\partial S}
-=
-\frac{\sigma(S)-y}{B}
-}.
-\]
+      \[
+        \
+        \frac{\partial J}{\partial S}
+        =
+        \frac{\sigma(S)-y}{B}
+        .
+      \]
 
 \subsection*{1.3 Complete backward chain}
 % Derive dW2, db2, dA1, dZ1, dW1, db1, and optionally dX.
 % Include shapes and explain batch-axis reductions for bias gradients.
 Starting from
 
-\[
-dS \equiv \frac{\partial J}{\partial S},
-\]
+      \[
+        dS \equiv \frac{\partial J}{\partial S},
+      \]
 
 we backpropagate through the output affine layer,
 
-\[
-S = A_1 W_2 + b_2.
-\]
+      \[
+        S = A_1 W_2 + b_2.
+      \]
 
 The output-layer weight gradient is
 
-\[
-dW_2
-=
-A_1^T dS,
-\]
+      \[
+        dW_2
+        =
+        A_1^T dS,
+      \]
 
 with shapes
 
-\[
-A_1^T:(H,B),
-\qquad
-dS:(B,1),
-\]
+      \[
+        A_1^T:(H,B),
+        \qquad
+        dS:(B,1),
+      \]
 
 so
 
-\[
-dW_2:(H,1).
-\]
+      \[
+        dW_2:(H,1).
+      \]
 
 The output bias gradient is
 
-\[
-db_2
-=
-\sum_{i=1}^{B} dS_i,
-\]
+      \[
+        db_2
+        =
+        \sum_{i=1}^{B} dS_i,
+      \]
 
 so
 
-\[
-db_2:(1,).
-\]
+      \[
+        db_2:(1,).
+      \]
 
 The gradient passed back to the hidden activations is
 
-\[
-dA_1
-=
-dS W_2^T,
-\]
+      \[
+        dA_1
+        =
+        dS W_2^T,
+      \]
 
 with
 
-\[
-dS:(B,1),
-\qquad
-W_2^T:(1,H),
-\]
+      \[
+        dS:(B,1),
+        \qquad
+        W_2^T:(1,H),
+      \]
 
 therefore
 
-\[
-dA_1:(B,H).
-\]
+      \[
+        dA_1:(B,H).
+      \]
 
 Next, since
 
-\[
-A_1=\operatorname{ReLU}(Z_1),
-\]
+      \[
+        A_1=\operatorname{ReLU}(Z_1),
+      \]
 
 the ReLU derivative gives
 
-\[
-dZ_1
-=
-dA_1 \odot \mathbf{1}(Z_1>0),
-\]
+      \[
+        dZ_1
+        =
+        dA_1 \odot \mathbf{1}(Z_1>0),
+      \]
 
 so
 
-\[
-dZ_1:(B,H).
-\]
+      \[
+        dZ_1:(B,H).
+      \]
 
 For the first affine layer,
 
-\[
-Z_1=XW_1+b_1.
-\]
+      \[
+        Z_1=XW_1+b_1.
+      \]
 
 The first-layer weight gradient is
 
-\[
-dW_1
-=
-X^T dZ_1,
-\]
+      \[
+        dW_1
+        =
+        X^T dZ_1,
+      \]
 
 with
 
-\[
-X^T:(D,B),
-\qquad
-dZ_1:(B,H),
-\]
+      \[
+        X^T:(D,B),
+        \qquad
+        dZ_1:(B,H),
+      \]
 
 so
 
-\[
-dW_1:(D,H).
-\]
+    \[
+      dW_1:(D,H).
+    \]
 
 The first-layer bias gradient is
 
-\[
-db_1
-=
-\sum_{i=1}^{B} dZ_{1,i},
-\]
+    \[
+      db_1
+      =
+      \sum_{i=1}^{B} dZ_{1,i},
+    \]
 
 therefore
 
-\[
-db_1:(H,).
-\]
+    \[
+      db_1:(H,).
+    \]
 
 Bias gradients reduce over the batch axis because the same bias parameter is shared by all examples in the batch. The contributions from all examples are summed, while the remaining dimensions match the original bias parameter shapes.
 
@@ -326,93 +326,94 @@ Bias gradients reduce over the batch axis because the same bias parameter is sha
 \subsection*{2.1 Stable primitives}
 % Explain the stability choices and report one extreme-logit check.
 The sigmoid was implemented using
-\[
-\sigma(z) =
-\exp\left(-\operatorname{logaddexp}(0,-z)\right),
-\]
+      \[
+        \sigma(z) =
+        \exp\left(-\operatorname{logaddexp}(0,-z)\right),
+      \]
 which avoids directly computing large values of \(e^{-z}\) for very negative
 inputs. 
 
 The ReLU function was implemented elementwise as
-\[
-\operatorname{ReLU}(z) = \max(0,z).
-\]
+      \[
+        \operatorname{ReLU}(z) = \max(0,z).
+      \]
 
 Binary cross-entropy was computed directly from logits using the numerically
 stable expression
-\[
-\ell(s,y)
-=
-\max(s,0)
--
-ys
-+
-\log\left(1+e^{-|s|}\right).
-\]
+      \[
+        \ell(s,y)
+        =
+        \max(s,0)
+        -
+        ys
+        +
+        \log\left(1+e^{-|s|}\right).
+      \]
 
 The loss function first verifies that the logits and targets have identical
 shape \((B,1)\), and then returns the mean loss as a Python scalar.
 
 For an extreme-logit check, I used
-\[
-z =
-\begin{bmatrix}
--1000 \\
-1000
-\end{bmatrix},
-\qquad
-y =
-\begin{bmatrix}
-0 \\
-1
-\end{bmatrix}.
-\]
+      \[
+        z =
+        \begin{bmatrix}
+        -1000 \\
+        1000
+        \end{bmatrix},
+        \qquad
+        y =
+        \begin{bmatrix}
+        0 \\
+        1
+        \end{bmatrix}.
+      \]
 
 The stable sigmoid returned
-\[
-\sigma(z) =
-\begin{bmatrix}
-0 \\
-1
-\end{bmatrix},
-\]
-and the BCE-with-logits loss was
-\[
-J = 0.0.
-\]
+      \[
+        \sigma(z) =
+        \begin{bmatrix}
+        0 \\
+        1
+        \end{bmatrix},
+        \]
+        and the BCE-with-logits loss was
+        \[
+        J = 0.0.
+      \]
 
 The computation remained finite with no overflow, infinity, or NaN values.
 \subsection*{2.2 Fixed-case forward pass}
 % Report Z1/A1/logit shapes and logits from the supplied check case.
 For the supplied fixed check case, the cached shapes were
-\[
-X \in \mathbb{R}^{4\times 2},
-\qquad
-Z_1 \in \mathbb{R}^{4\times 3},
-\qquad
-A_1 \in \mathbb{R}^{4\times 3}.
-\]
+      \[
+        X \in \mathbb{R}^{4\times 2},
+        \qquad
+        Z_1 \in \mathbb{R}^{4\times 3},
+        \qquad
+        A_1 \in \mathbb{R}^{4\times 3}.
+      \]
 
 The output logits had shape
-\[
-S \in \mathbb{R}^{4\times 1}.
-\]
+      \[
+        S \in \mathbb{R}^{4\times 1}.
+      \]
 
 The computed logits were
-\[
-S =
-\begin{bmatrix}
-0.358 \\
-0.840 \\
--0.131 \\
-0.850
-\end{bmatrix}.
-\]
+      \[
+        S =
+        \begin{bmatrix}
+        0.358 \\
+        0.840 \\
+        -0.131 \\
+        0.850
+        \end{bmatrix}.
+      \]
 
 The minimum absolute hidden pre-activation value was
-\[
-\min |Z_1| = 0.2.
-\]
+      \[
+        \min |Z_1| = 0.2.
+      \]
+
 \subsection*{2.3 Fixed-case manual backward pass}
 \begin{center}
   \begin{tabular}{lrr}
@@ -429,9 +430,9 @@ The minimum absolute hidden pre-activation value was
 
 % Report fixed-case loss and briefly interpret the gradient norms.
 The fixed-case mean BCE-with-logits loss was
-\[
-J = 0.803402148481108.
-\]
+      \[
+        J = 0.803402148481108.
+      \]
 
 All gradient norms are finite and nonzero, which indicates that the gradient
 propagates through both affine layers and the ReLU activation. In this check
@@ -452,17 +453,6 @@ case, $W_1$ has the largest gradient norm, while $b_2$ has the smallest.
     \bottomrule
   \end{tabular}
 \end{center}
-
-The relative error is computed as
-\[
-\frac{
-\left\|g_{\text{manual}}-g_{\text{reference}}\right\|_2
-}{
-\left\|g_{\text{manual}}\right\|_2+
-\left\|g_{\text{reference}}\right\|_2+
-10^{-12}
-}.
-\]
 
 \subsection*{3.2 PyTorch autograd comparison}
 % Provide a similar table for autograd and explain what passing establishes.
@@ -492,15 +482,35 @@ other parts, such as training, prediction, or different input data.
 \subsection*{4.1 Linear baseline}
 % Report train/test loss and accuracy; explain the straight-boundary limitation.
 
+The linear logistic regression model achieved a training loss of 0.6896
+and training accuracy of 69.44\%. On the test set, the loss was 0.7163
+and the accuracy was 58.33\%.
+
+The linear model uses one affine score followed by a sigmoid function,
+so it creates only one straight decision boundary. The XOR data has
+alternating class regions, so one straight line cannot separate them well.
 
 \subsection*{4.2 Manual MLP}
 % Report configuration and train/test loss and accuracy.
+The MLP used 8 hidden ReLU units, full-batch gradient descent, 2000 steps,
+learning rate 0.2, and seed 577. The training loss was 0.00208 with
+100\% accuracy. The test loss was 0.00184 with 100\% accuracy.
 
 % Insert the loss curve and decision-boundary figure exported by the notebook.
 % Example: \includegraphics[width=.8\linewidth]{hw2_experiment.png}
+  \begin{center}
+  \includegraphics[width=.8\linewidth]{hw2_experiment.png}
+  \end{center}
 
 \subsection*{4.3 Interpretation}
 % Write the requested 5--8 sentence evidence-based interpretation.
+The hidden ReLU units create new nonlinear features from the original inputs.
+The output layer is linear in these hidden features because it uses a weighted
+sum of them. The MLP learned the XOR pattern well, while the linear model
+underfit because it could only create one straight boundary. The similar
+training and test results do not show clear overfitting in this run.
+However, one run does not guarantee the same result for different
+initializations or hyperparameters.
 
 \section*{Part 5: Reflection}
 
