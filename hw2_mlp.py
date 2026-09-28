@@ -185,7 +185,23 @@ def train_mlp(
     seed: int = 577,
 ) -> Tuple[ArrayDict, List[float]]:
     """Train the manual MLP with full-batch gradient descent."""
-    raise NotImplementedError
+    params = initialize_parameters(
+        input_dim=X.shape[1],
+        hidden_dim=hidden_dim,
+        seed=seed
+    )
+
+    history = []
+
+    for _ in range(steps):
+        loss, grads = mlp_loss_and_gradients(X, y, params)
+
+        history.append(loss)
+
+        for key in PARAMETER_KEYS:
+            params[key] -= lr * grads[key]
+
+    return params, history
 
 
 def make_xor_data(
